@@ -13,7 +13,7 @@ ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
 DEBUG = True
 app = Flask(__name__)
 app.config.from_object(__name__)
-app.config['SECRET_KEY'] = '7d441f27d441f27567d441f2b6176a'
+#app.config['SECRET_KEY'] = '7d441f27d441f27567d441f2b6176a'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 def allowed_file(filename):
 	return '.' in filename and \
@@ -38,7 +38,7 @@ def upload_file():
 			return '''
 			<!doctype html>
 			<title>Results</title>
-			<h1>Image contains a - '''+result+'''</h1>
+			<h1>Image contains a '''+result+'''</h1>
 			<form method=post enctype=multipart/form-data>
 			  <input type=file name=file>
 			  <input type=submit value=Upload>
@@ -46,15 +46,15 @@ def upload_file():
 			'''
 	return '''
 	<!doctype html>
-	<title>Upload new File</title>
-	<h1>Upload new File</h1>
+	<title>Upload an image</title>
+	<h1>Upload an image</h1>
 	<form method=post enctype=multipart/form-data>
 	  <input type=file name=file>
 	  <input type=submit value=Upload>
 	</form>
 	'''
 def covidOrNot(image):
-	'''Determines if the image contains a cat or dog'''
+	'''Determines if the chest x ray has covid-19 or not'''
 	classifier = load_model('./Models/covid_model.h5')
 	image = cv2.resize(image, (224,224), interpolation = cv2.INTER_AREA)
 	image = image.reshape(1,224,224,3) 
